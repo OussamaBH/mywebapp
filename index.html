@@ -1,1 +1,1216 @@
-azeaze aze aze
+CREATE TABLE MSchange_tracking_history (
+	internal_table_name VARCHAR(128) NOT NULL,
+	table_name VARCHAR(128) NOT NULL,
+	start_time datetime NOT NULL,
+	end_time datetime NOT NULL,
+	rows_cleaned_up bigint NOT NULL,
+	cleanup_version bigint NULL,
+	comments LONGTEXT NOT NULL
+);
+ CREATE INDEX IX_MSchange_tracking_history_start_time ON MSchange_tracking_history (  start_time ASC  );
+
+
+-- articles definition
+
+-- Drop table
+
+-- DROP TABLE articles;
+
+CREATE TABLE articles (
+	title LONGTEXT NULL,
+	body LONGTEXT NULL,
+	snippet LONGTEXT NULL,
+	an varchar(30) NOT NULL,
+	word_count bigint NULL,
+	`date` datetime NULL,
+	language_code LONGTEXT NULL,
+	secteur LONGTEXT NULL,
+	score_sentiment float NULL,
+	classe_sentiment LONGTEXT NULL,
+	liste_contreparties LONGTEXT NULL,
+	source_name LONGTEXT NULL,
+	localisation LONGTEXT NULL,
+	temps_lecture int NULL,
+	themes LONGTEXT NULL,
+	score_pertinence float NULL,
+	id int IDENTITY(1,1) NOT NULL,
+	is_doublon int NULL,
+	sous_secteurs LONGTEXT NULL,
+	localisations_detected_in_body LONGTEXT NULL,
+	CONSTRAINT pk_articles_tab PRIMARY KEY (an)
+);
+ CREATE INDEX articles_date ON articles (  date ASC  );
+
+
+-- blob_check definition
+
+-- Drop table
+
+-- DROP TABLE blob_check;
+
+CREATE TABLE blob_check (
+	`path` LONGTEXT NULL
+);
+
+
+-- brut definition
+
+-- Drop table
+
+-- DROP TABLE brut;
+
+CREATE TABLE brut (
+	copyright LONGTEXT NULL,
+	subject_codes LONGTEXT NULL,
+	art LONGTEXT NULL,
+	modification_datetime datetime NULL,
+	body LONGTEXT NULL,
+	company_codes_occur_ticker_exchange LONGTEXT NULL,
+	company_codes_occur LONGTEXT NULL,
+	company_codes_about LONGTEXT NULL,
+	company_codes_lineage LONGTEXT NULL,
+	company_codes_ticker_exchange LONGTEXT NULL,
+	snippet LONGTEXT NULL,
+	company_codes_relevance_ticker_exchange LONGTEXT NULL,
+	market_index_codes LONGTEXT NULL,
+	credit LONGTEXT NULL,
+	`section` LONGTEXT NULL,
+	company_codes_association_ticker_exchange LONGTEXT NULL,
+	currency_codes LONGTEXT NULL,
+	company_codes_about_ticker_exchange LONGTEXT NULL,
+	region_of_origin LONGTEXT NULL,
+	company_codes_lineage_ticker_exchange LONGTEXT NULL,
+	source_name LONGTEXT NULL,
+	language_code LONGTEXT NULL,
+	region_codes LONGTEXT NULL,
+	company_codes_association LONGTEXT NULL,
+	person_codes LONGTEXT NULL,
+	byline LONGTEXT NULL,
+	dateline LONGTEXT NULL,
+	company_codes_relevance LONGTEXT NULL,
+	source_code LONGTEXT NULL,
+	an LONGTEXT NULL,
+	word_count bigint NULL,
+	company_codes LONGTEXT NULL,
+	industry_codes LONGTEXT NULL,
+	title LONGTEXT NULL,
+	publisher_name LONGTEXT NULL,
+	`action` LONGTEXT NULL,
+	document_type LONGTEXT NULL,
+	check_article int NOT NULL,
+	publication_date datetime NULL,
+	ingestion_datetime datetime NULL,
+	modification_date datetime NULL,
+	publication_datetime datetime NULL
+);
+ CREATE INDEX brut_articles_check ON brut (  check_article ASC  );
+
+
+-- classification definition
+
+-- Drop table
+
+-- DROP TABLE classification;
+
+CREATE TABLE classification (
+	an LONGTEXT NULL,
+	ADMINISTRATION float NULL,
+	`AERONAUTIQUE / ARMEMENT` float NULL,
+	`AGRO-ALIMENTAIRE` float NULL,
+	`BIENS DE CONSOMMATION (Production / Fabrication)` float NULL,
+	BTP float NULL,
+	COMMUNICATION float NULL,
+	`CONSTRUCTION MECANIQUE ET ELECTRIQUE` float NULL,
+	`DISTRIBUTION-COMMERCE` float NULL,
+	ELECTRICITE float NULL,
+	FINANCE float NULL,
+	`HOLDINGS ET GROUPES DIVERS` float NULL,
+	`INDUSTRIE DE BASE` float NULL,
+	`LOCATIONS ET SERVICES IMMOBILIERS` float NULL,
+	`PETROLE - GAZ` float NULL,
+	`PHARMACIE / SANTE` float NULL,
+	PIM float NULL,
+	SERVICES float NULL,
+	`SERVICES AUX COLLECTIVITES` float NULL,
+	TECHNOLOGIES float NULL,
+	TELECOMMUNICATIONS float NULL,
+	`TOURISME-HOTELLERIE-RESTAURATION` float NULL,
+	TRANSPORT float NULL,
+	AUTOMOBILE float NULL
+);
+
+
+-- coverages definition
+
+-- Drop table
+
+-- DROP TABLE coverages;
+
+CREATE TABLE coverages (
+	id int IDENTITY(1,1) NOT NULL,
+	name varchar(100) NOT NULL,
+	CONSTRAINT PK__coverages PRIMARY KEY (id)
+);
+
+
+-- dev_info_contreparties definition
+
+-- Drop table
+
+-- DROP TABLE dev_info_contreparties;
+
+CREATE TABLE dev_info_contreparties (
+	nom_entreprise LONGTEXT NULL,
+	nom_commercial LONGTEXT NULL,
+	nom_usage LONGTEXT NULL,
+	Ville LONGTEXT NULL,
+	Pays LONGTEXT NULL,
+	code_postal float NULL,
+	site_internet LONGTEXT NULL,
+	numero_siren bigint NULL,
+	numero_siret LONGTEXT NULL,
+	code_isin LONGTEXT NULL,
+	statut_juridique LONGTEXT NULL,
+	procedure_collective LONGTEXT NULL,
+	situation_juridique LONGTEXT NULL,
+	debut_procedure_collective datetime NULL,
+	fin_procedure_collective datetime NULL,
+	date_fin_procedure_de_sauvegarde LONGTEXT NULL,
+	no_siren_entreprise_absorbant float NULL,
+	nom_entreprise_absorbant LONGTEXT NULL,
+	pays_entreprise_absorbant LONGTEXT NULL,
+	forme_juridique LONGTEXT NULL,
+	categorie_juridique LONGTEXT NULL,
+	date_creation LONGTEXT NULL,
+	capitalisation_boursiere_keur LONGTEXT NULL,
+	place_boursiere_principale LONGTEXT NULL,
+	cotee_decotee_non_cotee LONGTEXT NULL,
+	taille_composition_groupe float NULL,
+	nombre_actionnaires bigint NULL,
+	nombre_filiales bigint NULL,
+	naf_code_principal LONGTEXT NULL,
+	naf_code_secondaire LONGTEXT NULL,
+	naf_code_secondaire_code LONGTEXT NULL,
+	naf_code_principal_code LONGTEXT NULL,
+	convention_collective_effectif_salarie_france_estimation LONGTEXT NULL,
+	dirigeant_nom_complet LONGTEXT NULL,
+	dirigeant_date_nomination LONGTEXT NULL,
+	filiales_nom LONGTEXT NULL,
+	filiales_code_pays_iso LONGTEXT NULL,
+	filiales_ville LONGTEXT NULL,
+	filiales_pourcentage_total LONGTEXT NULL,
+	filiales_pourcentage_direct LONGTEXT NULL,
+	filiales_date_information LONGTEXT NULL,
+	filiales_nombre_employes LONGTEXT NULL,
+	filiales_statut LONGTEXT NULL,
+	filiales_numero_siren LONGTEXT NULL,
+	filiales_commune LONGTEXT NULL,
+	tete_nom_groupe LONGTEXT NULL,
+	tete_groupe_code_pays LONGTEXT NULL,
+	tete_groupe_ville LONGTEXT NULL,
+	tete_groupe_nace_code_principal LONGTEXT NULL,
+	tete_groupe_nace_description_activite LONGTEXT NULL,
+	tete_groupe_pourcentage_direct LONGTEXT NULL,
+	tete_groupe_pourcentage_total LONGTEXT NULL,
+	tete_groupe_numero_siren float NULL,
+	tete_groupe_nombre_employes float NULL,
+	tete_groupe_date_information LONGTEXT NULL,
+	tete_groupe_commune LONGTEXT NULL,
+	chiffre_affaires float NULL
+);
+
+
+-- establishments definition
+
+-- Drop table
+
+-- DROP TABLE establishments;
+
+CREATE TABLE establishments (
+	id int IDENTITY(1,1) NOT NULL,
+	name varchar(100) COLLATE Latin1_General_100_CI_AI_SC_UTF8 NOT NULL,
+	CONSTRAINT PK__establishments PRIMARY KEY (id)
+);
+
+
+-- etablissements definition
+
+-- Drop table
+
+-- DROP TABLE etablissements;
+
+CREATE TABLE etablissements (
+	libelle LONGTEXT COLLATE Latin1_General_100_CI_AI_SC_UTF8 NULL,
+	journaux LONGTEXT COLLATE Latin1_General_100_CI_AI_SC_UTF8 NULL
+);
+
+
+-- intermediate definition
+
+-- Drop table
+
+-- DROP TABLE intermediate;
+
+CREATE TABLE intermediate (
+	title LONGTEXT NULL,
+	body LONGTEXT NULL,
+	snippet LONGTEXT NULL,
+	an LONGTEXT NULL,
+	word_count bigint NULL,
+	`date` datetime NULL,
+	language_code LONGTEXT NULL,
+	secteur LONGTEXT NULL,
+	score_sentiment float NULL,
+	classe_sentiment LONGTEXT NULL,
+	liste_contreparties LONGTEXT NULL,
+	source_name LONGTEXT NULL,
+	localisation LONGTEXT NULL,
+	sentiment_phrases LONGTEXT NULL,
+	publisher_name LONGTEXT NULL,
+	region_of_origin LONGTEXT NULL,
+	region_codes LONGTEXT NULL,
+	industry_codes LONGTEXT NULL,
+	secteurs_proba LONGTEXT NULL,
+	NER LONGTEXT NULL,
+	temps_lecture int NULL,
+	themes LONGTEXT NULL,
+	score_pertinence float NULL,
+	sous_secteurs LONGTEXT NULL,
+	localisations_detected_in_body LONGTEXT NULL
+);
+
+
+-- kpis_contreparties_annee definition
+
+-- Drop table
+
+-- DROP TABLE kpis_contreparties_annee;
+
+CREATE TABLE kpis_contreparties_annee (
+	id_federal int NULL,
+	raison_sociale LONGTEXT NULL,
+	ids_articles LONGTEXT NOT NULL,
+	nbr_articles bigint NULL,
+	score_sentiment_moyen float NULL,
+	classe_sentiment LONGTEXT NULL,
+	period LONGTEXT NOT NULL,
+	date_fin_periode date NOT NULL,
+	date_debut_periode date NOT NULL
+);
+ CREATE INDEX idx_kpis_cont_annee_date ON kpis_contreparties_annee (  date_debut_periode ASC  );
+ CREATE INDEX idx_kpis_cont_annee_id ON kpis_contreparties_annee (  id_federal ASC  );
+
+
+-- kpis_contreparties_evolution_score_sentiment_annee definition
+
+-- Drop table
+
+-- DROP TABLE kpis_contreparties_evolution_score_sentiment_annee;
+
+CREATE TABLE kpis_contreparties_evolution_score_sentiment_annee (
+	id_federal int NULL,
+	fin_periode_courante date NOT NULL,
+	debut_periode_courante date NOT NULL,
+	fin_periode_precedente date NOT NULL,
+	debut_periode_precedente date NOT NULL,
+	nbr_articles_periode_courante bigint NULL,
+	nbr_articles_periode_precedente bigint NULL,
+	evolution_score float NULL
+);
+ CREATE INDEX idx_kpis_cont_evolution_note_annee_id ON kpis_contreparties_evolution_score_sentiment_annee (  id_federal ASC  );
+
+
+-- kpis_contreparties_evolution_score_sentiment_mois definition
+
+-- Drop table
+
+-- DROP TABLE kpis_contreparties_evolution_score_sentiment_mois;
+
+CREATE TABLE kpis_contreparties_evolution_score_sentiment_mois (
+	id_federal int NULL,
+	fin_periode_courante date NOT NULL,
+	debut_periode_courante date NOT NULL,
+	fin_periode_precedente date NOT NULL,
+	debut_periode_precedente date NOT NULL,
+	nbr_articles_periode_courante bigint NULL,
+	nbr_articles_periode_precedente bigint NULL,
+	evolution_score float NULL
+);
+ CREATE INDEX idx_kpis_cont_evolution_note_mois_id ON kpis_contreparties_evolution_score_sentiment_mois (  id_federal ASC  );
+
+
+-- kpis_contreparties_evolution_score_sentiment_semaine definition
+
+-- Drop table
+
+-- DROP TABLE kpis_contreparties_evolution_score_sentiment_semaine;
+
+CREATE TABLE kpis_contreparties_evolution_score_sentiment_semaine (
+	id_federal int NULL,
+	fin_periode_courante date NOT NULL,
+	debut_periode_courante date NOT NULL,
+	fin_periode_precedente date NOT NULL,
+	debut_periode_precedente date NOT NULL,
+	nbr_articles_periode_courante bigint NULL,
+	nbr_articles_periode_precedente bigint NULL,
+	evolution_score float NULL
+);
+ CREATE INDEX idx_kpis_cont_evolution_note_semaine_id ON kpis_contreparties_evolution_score_sentiment_semaine (  id_federal ASC  );
+
+
+-- kpis_contreparties_mois definition
+
+-- Drop table
+
+-- DROP TABLE kpis_contreparties_mois;
+
+CREATE TABLE kpis_contreparties_mois (
+	id_federal int NULL,
+	raison_sociale LONGTEXT NULL,
+	ids_articles LONGTEXT NOT NULL,
+	nbr_articles bigint NULL,
+	score_sentiment_moyen float NULL,
+	classe_sentiment LONGTEXT NULL,
+	period LONGTEXT NOT NULL,
+	date_fin_periode date NOT NULL,
+	date_debut_periode date NOT NULL
+);
+ CREATE INDEX idx_kpis_cont_mois_date ON kpis_contreparties_mois (  date_debut_periode ASC  );
+ CREATE INDEX idx_kpis_cont_mois_id ON kpis_contreparties_mois (  id_federal ASC  );
+
+
+-- kpis_contreparties_repartition_classe_sentiment_annee definition
+
+-- Drop table
+
+-- DROP TABLE kpis_contreparties_repartition_classe_sentiment_annee;
+
+CREATE TABLE kpis_contreparties_repartition_classe_sentiment_annee (
+	id_federal int NULL,
+	results LONGTEXT NOT NULL,
+	date_fin_periode date NOT NULL,
+	date_debut_periode date NOT NULL,
+	nbr_total_articles bigint NULL
+);
+ CREATE INDEX idx_kpis_cont_repartition_sentiment_annee_id ON kpis_contreparties_repartition_classe_sentiment_annee (  id_federal ASC  );
+
+
+-- kpis_contreparties_repartition_classe_sentiment_mois definition
+
+-- Drop table
+
+-- DROP TABLE kpis_contreparties_repartition_classe_sentiment_mois;
+
+CREATE TABLE kpis_contreparties_repartition_classe_sentiment_mois (
+	id_federal int NULL,
+	results LONGTEXT NOT NULL,
+	date_fin_periode date NOT NULL,
+	date_debut_periode date NOT NULL,
+	nbr_total_articles bigint NULL
+);
+ CREATE INDEX idx_kpis_cont_repartition_sentiment_mois_id ON kpis_contreparties_repartition_classe_sentiment_mois (  id_federal ASC  );
+
+
+-- kpis_contreparties_repartition_classe_sentiment_semaine definition
+
+-- Drop table
+
+-- DROP TABLE kpis_contreparties_repartition_classe_sentiment_semaine;
+
+CREATE TABLE kpis_contreparties_repartition_classe_sentiment_semaine (
+	id_federal int NULL,
+	results LONGTEXT NOT NULL,
+	date_fin_periode date NOT NULL,
+	date_debut_periode date NOT NULL,
+	nbr_total_articles bigint NULL
+);
+ CREATE INDEX idx_kpis_cont_repartition_sentiment_semaine_id ON kpis_contreparties_repartition_classe_sentiment_semaine (  id_federal ASC  );
+
+
+-- kpis_contreparties_semaine definition
+
+-- Drop table
+
+-- DROP TABLE kpis_contreparties_semaine;
+
+CREATE TABLE kpis_contreparties_semaine (
+	id_federal int NULL,
+	raison_sociale LONGTEXT NULL,
+	ids_articles LONGTEXT NOT NULL,
+	nbr_articles bigint NULL,
+	score_sentiment_moyen float NULL,
+	classe_sentiment LONGTEXT NULL,
+	period LONGTEXT NOT NULL,
+	date_fin_periode date NOT NULL,
+	date_debut_periode date NOT NULL
+);
+ CREATE INDEX idx_kpis_cont_semaine_date ON kpis_contreparties_semaine (  date_debut_periode ASC  );
+ CREATE INDEX idx_kpis_cont_semaine_id ON kpis_contreparties_semaine (  id_federal ASC  );
+
+
+-- kpis_contreparties_semaine_statique definition
+
+-- Drop table
+
+-- DROP TABLE kpis_contreparties_semaine_statique;
+
+CREATE TABLE kpis_contreparties_semaine_statique (
+	id_federal int NULL,
+	ids_articles LONGTEXT NOT NULL,
+	score_sentiment_moyen float NULL,
+	date_debut_periode date NULL,
+	nbr_articles bigint NULL
+);
+ CREATE INDEX idx_kpis_cont_semaine_statique_date ON kpis_contreparties_semaine_statique (  date_debut_periode ASC  );
+ CREATE INDEX idx_kpis_cont_semaine_statique_id ON kpis_contreparties_semaine_statique (  id_federal ASC  );
+
+
+-- kpis_secteurs_annee definition
+
+-- Drop table
+
+-- DROP TABLE kpis_secteurs_annee;
+
+CREATE TABLE kpis_secteurs_annee (
+	id int NULL,
+	libelle_secteur LONGTEXT NULL,
+	ids_articles LONGTEXT NOT NULL,
+	nbr_articles bigint NULL,
+	score_sentiment_moyen float NULL,
+	classe_sentiment LONGTEXT NULL,
+	period LONGTEXT NOT NULL,
+	date_fin_periode date NOT NULL,
+	date_debut_periode date NOT NULL
+);
+ CREATE INDEX idx_kpis_sect_annee_date ON kpis_secteurs_annee (  date_debut_periode ASC  );
+ CREATE INDEX idx_kpis_sect_annee_id ON kpis_secteurs_annee (  id ASC  );
+
+
+-- kpis_secteurs_evolution_score_sentiment_annee definition
+
+-- Drop table
+
+-- DROP TABLE kpis_secteurs_evolution_score_sentiment_annee;
+
+CREATE TABLE kpis_secteurs_evolution_score_sentiment_annee (
+	id_secteur int NULL,
+	fin_periode_courante date NOT NULL,
+	debut_periode_courante date NOT NULL,
+	fin_periode_precedente date NOT NULL,
+	debut_periode_precedente date NOT NULL,
+	nbr_articles_periode_courante bigint NULL,
+	nbr_articles_periode_precedente bigint NULL,
+	evolution_score float NULL
+);
+ CREATE INDEX idx_kpis_sect_evolution_note_annee_id ON kpis_secteurs_evolution_score_sentiment_annee (  id_secteur ASC  );
+
+
+-- kpis_secteurs_evolution_score_sentiment_mois definition
+
+-- Drop table
+
+-- DROP TABLE kpis_secteurs_evolution_score_sentiment_mois;
+
+CREATE TABLE kpis_secteurs_evolution_score_sentiment_mois (
+	id_secteur int NULL,
+	fin_periode_courante date NOT NULL,
+	debut_periode_courante date NOT NULL,
+	fin_periode_precedente date NOT NULL,
+	debut_periode_precedente date NOT NULL,
+	nbr_articles_periode_courante bigint NULL,
+	nbr_articles_periode_precedente bigint NULL,
+	evolution_score float NULL
+);
+ CREATE INDEX idx_kpis_sect_evolution_note_mois_id ON kpis_secteurs_evolution_score_sentiment_mois (  id_secteur ASC  );
+
+
+-- kpis_secteurs_evolution_score_sentiment_semaine definition
+
+-- Drop table
+
+-- DROP TABLE kpis_secteurs_evolution_score_sentiment_semaine;
+
+CREATE TABLE kpis_secteurs_evolution_score_sentiment_semaine (
+	id_secteur int NULL,
+	fin_periode_courante date NOT NULL,
+	debut_periode_courante date NOT NULL,
+	fin_periode_precedente date NOT NULL,
+	debut_periode_precedente date NOT NULL,
+	nbr_articles_periode_courante bigint NULL,
+	nbr_articles_periode_precedente bigint NULL,
+	evolution_score float NULL
+);
+ CREATE INDEX idx_kpis_sect_evolution_note_semaine_id ON kpis_secteurs_evolution_score_sentiment_semaine (  id_secteur ASC  );
+
+
+-- kpis_secteurs_mois definition
+
+-- Drop table
+
+-- DROP TABLE kpis_secteurs_mois;
+
+CREATE TABLE kpis_secteurs_mois (
+	id int NULL,
+	libelle_secteur LONGTEXT NULL,
+	ids_articles LONGTEXT NOT NULL,
+	nbr_articles bigint NULL,
+	score_sentiment_moyen float NULL,
+	classe_sentiment LONGTEXT NULL,
+	period LONGTEXT NOT NULL,
+	date_fin_periode date NOT NULL,
+	date_debut_periode date NOT NULL
+);
+ CREATE INDEX idx_kpis_sect_mois_date ON kpis_secteurs_mois (  date_debut_periode ASC  );
+ CREATE INDEX idx_kpis_sect_mois_id ON kpis_secteurs_mois (  id ASC  );
+
+
+-- kpis_secteurs_semaine definition
+
+-- Drop table
+
+-- DROP TABLE kpis_secteurs_semaine;
+
+CREATE TABLE kpis_secteurs_semaine (
+	id int NULL,
+	libelle_secteur LONGTEXT NULL,
+	ids_articles LONGTEXT NOT NULL,
+	nbr_articles bigint NULL,
+	score_sentiment_moyen float NULL,
+	classe_sentiment LONGTEXT NULL,
+	period LONGTEXT NOT NULL,
+	date_fin_periode date NOT NULL,
+	date_debut_periode date NOT NULL
+);
+ CREATE INDEX idx_kpis_sect_semaine_date ON kpis_secteurs_semaine (  date_debut_periode ASC  );
+ CREATE INDEX idx_kpis_sect_semaine_id ON kpis_secteurs_semaine (  id ASC  );
+
+
+-- kpis_secteurs_semaine_statique definition
+
+-- Drop table
+
+-- DROP TABLE kpis_secteurs_semaine_statique;
+
+CREATE TABLE kpis_secteurs_semaine_statique (
+	id int NULL,
+	ids_articles LONGTEXT NOT NULL,
+	score_sentiment_moyen float NULL,
+	date_debut_periode date NULL,
+	nbr_articles bigint NULL
+);
+ CREATE INDEX idx_kpis_sect_semaine_statique_date ON kpis_secteurs_semaine_statique (  date_debut_periode ASC  );
+ CREATE INDEX idx_kpis_sect_semaine_statique_id ON kpis_secteurs_semaine_statique (  id ASC  );
+
+
+-- ref_contreparties_bpce definition
+
+-- Drop table
+
+-- DROP TABLE ref_contreparties_bpce;
+
+CREATE TABLE ref_contreparties_bpce (
+	`index` bigint NULL,
+	ID_FEDERAL bigint NULL,
+	REMETTANT_CODE LONGTEXT NULL,
+	REMETTANT_LIB LONGTEXT NULL,
+	NOM_USAGE_BPCE LONGTEXT NULL,
+	RAISON_SOCIALE LONGTEXT NULL,
+	NAF_2_CODE LONGTEXT NULL,
+	NAF_2_LIB LONGTEXT NULL,
+	CATEGORIE_JURIDIQUE_LIB LONGTEXT NULL,
+	ETABLISSEMENT_PRINCIPAL LONGTEXT NULL,
+	SIREN LONGTEXT NULL,
+	SOUS_SECTEUR_ACTIVITE_LIB LONGTEXT NULL,
+	NATURE_LIEN_GRAPPAGE_CODE_nat LONGTEXT NULL,
+	LIBELLE_GROUPE_nat LONGTEXT NULL,
+	SECTEUR_BPCE LONGTEXT NULL,
+	WATCHLIST bigint NULL,
+	LIMITE_GROUPE bigint NULL
+);
+ CREATE INDEX ix_contreparties_ref_bpce_index ON ref_contreparties_bpce (  index ASC  );
+
+
+-- regions definition
+
+-- Drop table
+
+-- DROP TABLE regions;
+
+CREATE TABLE regions (
+	id int IDENTITY(1,1) NOT NULL,
+	name varchar(100) NOT NULL,
+	CONSTRAINT PK__regions PRIMARY KEY (id)
+);
+
+
+-- secteurs definition
+
+-- Drop table
+
+-- DROP TABLE secteurs;
+
+CREATE TABLE secteurs (
+	libelle varchar(50) NULL,
+	libelle_pictogramme varchar(75) NULL,
+	id int NOT NULL,
+	img_cnt int DEFAULT 0 NULL,
+	CONSTRAINT PK_secteurs PRIMARY KEY (id)
+);
+
+
+-- sectors definition
+
+-- Drop table
+
+-- DROP TABLE sectors;
+
+CREATE TABLE sectors (
+	libelle varchar(50) NULL,
+	libelle_pictogramme varchar(75) NULL,
+	id int NOT NULL
+);
+
+
+-- settings definition
+
+-- Drop table
+
+-- DROP TABLE settings;
+
+CREATE TABLE settings (
+	id int IDENTITY(1,1) NOT NULL,
+	name varchar(100) NOT NULL,
+	explaination varchar(100) NULL,
+	CONSTRAINT PK__settings PRIMARY KEY (id)
+);
+
+
+-- sources definition
+
+-- Drop table
+
+-- DROP TABLE sources;
+
+CREATE TABLE sources (
+	id int IDENTITY(1,1) NOT NULL,
+	name varchar(100) NOT NULL,
+	code varchar(20) NULL,
+	CONSTRAINT PK__sources PRIMARY KEY (id)
+);
+
+
+-- Users definition
+
+-- Drop table
+
+-- DROP TABLE Users;
+
+CREATE TABLE Users (
+	userId int IDENTITY(1,1) NOT NULL,
+	nom varchar(50) NULL,
+	prenom varchar(50) NULL,
+	mail varchar(50) NULL,
+	password_hash varchar(100) NOT NULL,
+	etablissement LONGTEXT COLLATE Latin1_General_100_CI_AI_SC_UTF8 NULL,
+	portefeuilles varchar(100) NULL,
+	id_establishment int NULL,
+	CONSTRAINT PK__Users__CB9A1CFF5B674FA5 PRIMARY KEY (userId),
+	CONSTRAINT unique_mail UNIQUE (mail),
+	CONSTRAINT fk_Users_establishment FOREIGN KEY (id_establishment) REFERENCES establishments(id)
+);
+
+
+-- avis definition
+
+-- Drop table
+
+-- DROP TABLE avis;
+
+CREATE TABLE avis (
+	id int IDENTITY(1,1) NOT NULL,
+	id_utilisateur int NULL,
+	sujet varchar(100) NULL,
+	texte LONGTEXT NULL,
+	`date` date NULL,
+	CONSTRAINT PK__avis__3213E83F6077F588 PRIMARY KEY (id),
+	CONSTRAINT fk_userid FOREIGN KEY (id_utilisateur) REFERENCES Users(userId)
+);
+
+
+-- contreparties definition
+
+-- Drop table
+
+-- DROP TABLE contreparties;
+
+CREATE TABLE contreparties (
+	id_federal int NOT NULL,
+	raison_sociale varchar(250) NOT NULL,
+	portefeuilles_etablissement LONGTEXT NULL,
+	portefeuilles_groupe LONGTEXT NULL,
+	siren varchar(9) NULL,
+	id_secteur int NULL,
+	CONSTRAINT PK__contrepa__E470E38B34F4DF0B PRIMARY KEY (id_federal),
+	CONSTRAINT fk_contrepartie_secteur FOREIGN KEY (id_secteur) REFERENCES secteurs(id)
+);
+
+
+-- contreparties_suivies definition
+
+-- Drop table
+
+-- DROP TABLE contreparties_suivies;
+
+CREATE TABLE contreparties_suivies (
+	id int IDENTITY(1,1) NOT NULL,
+	id_utilisateur int NULL,
+	id_contrepartie int NULL,
+	derniere_date_vue datetime NULL,
+	alert int DEFAULT 0 NOT NULL,
+	negative_news int DEFAULT -1 NULL,
+	frequency int DEFAULT -1 NULL,
+	CONSTRAINT PK__contrepa__3213E83F298A61C8 PRIMARY KEY (id),
+	CONSTRAINT fk_contrepartie_contrepartie_suivie FOREIGN KEY (id_contrepartie) REFERENCES contreparties(id_federal) ON DELETE CASCADE,
+	CONSTRAINT fk_utilisateur_contrepartie_suivie FOREIGN KEY (id_utilisateur) REFERENCES Users(userId)
+);
+
+
+-- enhanced_kpis_contreparties definition
+
+-- Drop table
+
+-- DROP TABLE enhanced_kpis_contreparties;
+
+CREATE TABLE enhanced_kpis_contreparties (
+	id_federal int NULL,
+	date_debut_periode date NULL,
+	nbr_articles bigint NOT NULL,
+	nbr_phrases bigint NOT NULL,
+	score_sentiment_moyen float NULL,
+	score_total_sentiment float NULL,
+	ids_articles LONGTEXT NOT NULL,
+	CONSTRAINT fk_kpis_contreparties FOREIGN KEY (id_federal) REFERENCES contreparties(id_federal) ON DELETE CASCADE
+);
+ CREATE INDEX idx_enhanced_kpis_cont_date ON enhanced_kpis_contreparties (  date_debut_periode ASC  );
+ CREATE INDEX idx_enhanced_kpis_cont_id_federal ON enhanced_kpis_contreparties (  id_federal ASC  );
+
+
+-- enhanced_kpis_secteurs definition
+
+-- Drop table
+
+-- DROP TABLE enhanced_kpis_secteurs;
+
+CREATE TABLE enhanced_kpis_secteurs (
+	id int NULL,
+	libelle_secteur LONGTEXT NULL,
+	date_debut_periode date NULL,
+	nbr_articles bigint NOT NULL,
+	score_total_sentiment float NULL,
+	ids_articles LONGTEXT NOT NULL,
+	score_sentiment_moyen float NULL,
+	CONSTRAINT fk_enhanced_kpis_secteurs FOREIGN KEY (id) REFERENCES secteurs(id)
+);
+ CREATE INDEX idx_enhanced_kpis_sect_date ON enhanced_kpis_secteurs (  date_debut_periode ASC  );
+ CREATE INDEX idx_enhanced_kpis_sect_id ON enhanced_kpis_secteurs (  id ASC  );
+
+
+-- establishments_coverages definition
+
+-- Drop table
+
+-- DROP TABLE establishments_coverages;
+
+CREATE TABLE establishments_coverages (
+	id_establishment int NOT NULL,
+	id_coverage int NOT NULL,
+	CONSTRAINT fk_coverage_establishments_coverages FOREIGN KEY (id_coverage) REFERENCES coverages(id) ON DELETE CASCADE,
+	CONSTRAINT fk_establishment_establishments_coverages FOREIGN KEY (id_establishment) REFERENCES establishments(id) ON DELETE CASCADE
+);
+
+
+-- establishments_regions definition
+
+-- Drop table
+
+-- DROP TABLE establishments_regions;
+
+CREATE TABLE establishments_regions (
+	id_establishment int NOT NULL,
+	id_region int NOT NULL,
+	CONSTRAINT fk_establishment_establishments_regions FOREIGN KEY (id_establishment) REFERENCES establishments(id) ON DELETE CASCADE,
+	CONSTRAINT fk_region_establishments_regions FOREIGN KEY (id_region) REFERENCES regions(id) ON DELETE CASCADE
+);
+
+
+-- followed_counterparts_coverages definition
+
+-- Drop table
+
+-- DROP TABLE followed_counterparts_coverages;
+
+CREATE TABLE followed_counterparts_coverages (
+	id int IDENTITY(1,1) NOT NULL,
+	id_coverage int NOT NULL,
+	id_followed_counterpart int NOT NULL,
+	setting int NULL,
+	CONSTRAINT PK__followed_counterparts_coverages PRIMARY KEY (id),
+	CONSTRAINT fk_coverage_followed_counterparts_coverages FOREIGN KEY (id_coverage) REFERENCES coverages(id) ON DELETE CASCADE,
+	CONSTRAINT fk_followed_counterpart_followed_counterparts_coverages FOREIGN KEY (id_followed_counterpart) REFERENCES contreparties_suivies(id) ON DELETE CASCADE
+);
+
+
+-- followed_counterparts_sources definition
+
+-- Drop table
+
+-- DROP TABLE followed_counterparts_sources;
+
+CREATE TABLE followed_counterparts_sources (
+	id int IDENTITY(1,1) NOT NULL,
+	id_source int NOT NULL,
+	id_followed_counterpart_coverage int NOT NULL,
+	CONSTRAINT PK__followed_counterparts_sources PRIMARY KEY (id),
+	CONSTRAINT fk_followed_counterpart_coverage_followed_counterparts_sources FOREIGN KEY (id_followed_counterpart_coverage) REFERENCES followed_counterparts_coverages(id) ON DELETE CASCADE,
+	CONSTRAINT fk_source_followed_counterparts_sources FOREIGN KEY (id_source) REFERENCES sources(id) ON DELETE CASCADE
+);
+
+
+-- historique_doublons definition
+
+-- Drop table
+
+-- DROP TABLE historique_doublons;
+
+CREATE TABLE historique_doublons (
+	an_doublon varchar(30) NULL,
+	an_original varchar(30) NULL,
+	`date` LONGTEXT NULL,
+	ID_changement LONGTEXT NULL,
+	CONSTRAINT fk_doublon_article FOREIGN KEY (an_doublon) REFERENCES articles(an),
+	CONSTRAINT fk_original_article FOREIGN KEY (an_original) REFERENCES articles(an) ON DELETE CASCADE
+);
+
+
+-- historique_sentiment definition
+
+-- Drop table
+
+-- DROP TABLE historique_sentiment;
+
+CREATE TABLE historique_sentiment (
+	an varchar(30) NULL,
+	score_sentiment_model_v1 float NULL,
+	sentiment_phrases_model_v1 LONGTEXT NULL,
+	sentiment_phrases_model_v2 LONGTEXT NULL,
+	score_sentiment_model_v2 float NULL,
+	CONSTRAINT fk_historique_sentiment_article FOREIGN KEY (an) REFERENCES articles(an) ON DELETE CASCADE
+);
+
+
+-- kpis_contreparties_suivies_notifications definition
+
+-- Drop table
+
+-- DROP TABLE kpis_contreparties_suivies_notifications;
+
+CREATE TABLE kpis_contreparties_suivies_notifications (
+	id int NULL,
+	id_contrepartie int NULL,
+	id_utilisateur int NULL,
+	nbr_nouvelles_publications bigint NOT NULL,
+	ids_nouvelles_publications LONGTEXT NOT NULL,
+	derniere_date_vue datetime NULL,
+	CONSTRAINT fk_contreparties_kpis_notifications FOREIGN KEY (id_contrepartie) REFERENCES contreparties(id_federal),
+	CONSTRAINT fk_utilisateur_contreparties_kpis_notifications FOREIGN KEY (id_utilisateur) REFERENCES Users(userId)
+);
+
+
+-- kpis_secteurs_suivis_notifications definition
+
+-- Drop table
+
+-- DROP TABLE kpis_secteurs_suivis_notifications;
+
+CREATE TABLE kpis_secteurs_suivis_notifications (
+	id int NULL,
+	id_secteur int NULL,
+	id_utilisateur int NULL,
+	nbr_nouvelles_publications bigint NOT NULL,
+	ids_nouvelles_publications LONGTEXT NOT NULL,
+	derniere_date_vue datetime NULL,
+	CONSTRAINT fk_secteur_kpis_notifications FOREIGN KEY (id_secteur) REFERENCES secteurs(id),
+	CONSTRAINT fk_utilisateur_kpis_notifications FOREIGN KEY (id_utilisateur) REFERENCES Users(userId)
+);
+
+
+-- listes_favoris definition
+
+-- Drop table
+
+-- DROP TABLE listes_favoris;
+
+CREATE TABLE listes_favoris (
+	id int NOT NULL,
+	libelle varchar(250) NOT NULL,
+	id_utilisateur int NOT NULL,
+	date_creation datetime NULL,
+	CONSTRAINT PK__listes_favoris PRIMARY KEY (id),
+	CONSTRAINT FK_liste_utilisateur FOREIGN KEY (id_utilisateur) REFERENCES Users(userId) ON DELETE CASCADE
+);
+
+
+-- phrases definition
+
+-- Drop table
+
+-- DROP TABLE phrases;
+
+CREATE TABLE phrases (
+	an varchar(30) NULL,
+	entite LONGTEXT NULL,
+	Phrase LONGTEXT NULL,
+	score_sentiment float NULL,
+	classe_sentiment LONGTEXT NULL,
+	id_federal int NULL,
+	type_entite varchar(100) NULL,
+	siren_contrepartie varchar(9) NULL,
+	position_phrase int NULL,
+	CONSTRAINT fk_phrase_article FOREIGN KEY (an) REFERENCES articles(an) ON DELETE CASCADE
+);
+
+
+-- retours_utilisateurs_classification definition
+
+-- Drop table
+
+-- DROP TABLE retours_utilisateurs_classification;
+
+CREATE TABLE retours_utilisateurs_classification (
+	id int IDENTITY(1,1) NOT NULL,
+	id_utilisateur int NULL,
+	id_article varchar(30) NULL,
+	ancienne_classification LONGTEXT NULL,
+	classification_suggeree LONGTEXT NULL,
+	date_retour date NULL,
+	validation_analystes int NULL,
+	date_validation_analystes date NULL,
+	integration_dans_application int NULL,
+	date_integration date NULL,
+	CONSTRAINT PK__retours___3213E83FD08AA4C8 PRIMARY KEY (id),
+	CONSTRAINT fk_retour_classification_article FOREIGN KEY (id_article) REFERENCES articles(an),
+	CONSTRAINT fk_retour_classification_utilisateur FOREIGN KEY (id_utilisateur) REFERENCES Users(userId)
+);
+
+
+-- retours_utilisateurs_pertinence definition
+
+-- Drop table
+
+-- DROP TABLE retours_utilisateurs_pertinence;
+
+CREATE TABLE retours_utilisateurs_pertinence (
+	id int IDENTITY(1,1) NOT NULL,
+	id_utilisateur int NULL,
+	id_article varchar(30) NULL,
+	avis_utilisateur int NULL,
+	date_retour date NULL,
+	validation_analystes int NULL,
+	date_validation_analystes date NULL,
+	integration_dans_application int NULL,
+	date_integration date NULL,
+	CONSTRAINT PK__retours___3213E83FC7438E0A PRIMARY KEY (id),
+	CONSTRAINT fk_retour_pertinence_article FOREIGN KEY (id_article) REFERENCES articles(an),
+	CONSTRAINT fk_retour_pertinence_utilisateur FOREIGN KEY (id_utilisateur) REFERENCES Users(userId)
+);
+
+
+-- retours_utilisateurs_sentiment definition
+
+-- Drop table
+
+-- DROP TABLE retours_utilisateurs_sentiment;
+
+CREATE TABLE retours_utilisateurs_sentiment (
+	id int IDENTITY(1,1) NOT NULL,
+	id_utilisateur int NULL,
+	id_article varchar(30) NULL,
+	ancien_sentiment varchar(20) NULL,
+	avis_utilisateur int NULL,
+	sentiment_suggere varchar(20) NULL,
+	date_retour date NULL,
+	validation_analystes int NULL,
+	date_validation_analystes date NULL,
+	integration_dans_application int NULL,
+	date_integration date NULL,
+	CONSTRAINT PK__retours___3213E83F9BA111AA PRIMARY KEY (id),
+	CONSTRAINT fk_retour_sentiment_article FOREIGN KEY (id_article) REFERENCES articles(an) ON DELETE CASCADE,
+	CONSTRAINT fk_retour_sentiment_utilisateur FOREIGN KEY (id_utilisateur) REFERENCES Users(userId)
+);
+
+
+-- secteurs_articles definition
+
+-- Drop table
+
+-- DROP TABLE secteurs_articles;
+
+CREATE TABLE secteurs_articles (
+	id int IDENTITY(1,1) NOT NULL,
+	id_secteur int NULL,
+	id_article varchar(30) NULL,
+	CONSTRAINT PK__secteurs__3213E83FE5E56C04 PRIMARY KEY (id),
+	CONSTRAINT fk_sect_art_secteurid FOREIGN KEY (id_secteur) REFERENCES secteurs(id)
+);
+ CREATE INDEX nci_wi_secteurs_articles_F09742DDED428E49810510E5F0B90E6E ON secteurs_articles (  id_secteur ASC  , id_article ASC  );
+
+
+-- secteurs_suivis definition
+
+-- Drop table
+
+-- DROP TABLE secteurs_suivis;
+
+CREATE TABLE secteurs_suivis (
+	id_secteur int NOT NULL,
+	id_utilisateur int NOT NULL,
+	derniere_date_vue datetime NULL,
+	id int IDENTITY(1,1) NOT NULL,
+	CONSTRAINT PK__secteurs__3213E83FB804A5F2 PRIMARY KEY (id),
+	CONSTRAINT fk_secteur_suivi FOREIGN KEY (id_secteur) REFERENCES secteurs(id),
+	CONSTRAINT fk_utilisateur_secteur_suivi FOREIGN KEY (id_utilisateur) REFERENCES Users(userId)
+);
+
+
+-- sources_coverages definition
+
+-- Drop table
+
+-- DROP TABLE sources_coverages;
+
+CREATE TABLE sources_coverages (
+	id int IDENTITY(1,1) NOT NULL,
+	id_coverage int NOT NULL,
+	id_source int NOT NULL,
+	CONSTRAINT PK__source_coverages PRIMARY KEY (id),
+	CONSTRAINT fk_coverage_source_coverage FOREIGN KEY (id_coverage) REFERENCES coverages(id) ON DELETE CASCADE,
+	CONSTRAINT fk_source_source_coverage FOREIGN KEY (id_source) REFERENCES sources(id) ON DELETE CASCADE
+);
+
+
+-- sources_regions definition
+
+-- Drop table
+
+-- DROP TABLE sources_regions;
+
+CREATE TABLE sources_regions (
+	id int IDENTITY(1,1) NOT NULL,
+	id_region int NOT NULL,
+	id_source int NOT NULL,
+	CONSTRAINT PK__sources_regions PRIMARY KEY (id),
+	CONSTRAINT fk_region_sources_regions FOREIGN KEY (id_region) REFERENCES regions(id) ON DELETE CASCADE,
+	CONSTRAINT fk_source_sources_regions FOREIGN KEY (id_source) REFERENCES sources(id) ON DELETE CASCADE
+);
+
+
+-- articles_favoris definition
+
+-- Drop table
+
+-- DROP TABLE articles_favoris;
+
+CREATE TABLE articles_favoris (
+	id int IDENTITY(1,1) NOT NULL,
+	id_liste int NOT NULL,
+	id_article varchar(30) NOT NULL,
+	date_ajout datetime NULL,
+	CONSTRAINT PK__articles__3213E83FE1272E2B PRIMARY KEY (id),
+	CONSTRAINT articles_favoris_FK FOREIGN KEY (id_liste) REFERENCES listes_favoris(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+
+-- v_details_contreparties source
+
+CREATE VIEW v_details_contreparties AS
+SELECT
+    id_federal
+    , id_secteur
+    , libelle AS 'libelle_secteur' 
+   , code_postal
+   , Pays
+   , Ville
+   , site_internet
+   , numero_siren
+   , numero_Siret
+   , forme_juridique
+   , place_boursiere_principale
+   , nombre_actionnaires
+   , naf_code_principal
+   , naf_code_secondaire
+   , convention_collective_effectif_salarie_france_estimation AS "effectif_salarie"
+   , dirigeant_nom_complet AS "Dirigeants"
+   , situation_juridique
+   , procedure_collective
+   , date_creation
+FROM dev_info_contreparties
+INNER JOIN contreparties cont ON numero_siren = CAST(siren AS BIGINT)
+INNER JOIN secteurs sect ON cont.id_secteur = sect.id;
+
+
+
+
+
+
+-- theme definition
+
+-- Drop table
+
+-- DROP TABLE theme;
+
+CREATE TABLE theme (
+	id int IDENTITY(1,1) NOT NULL,
+	name varchar(100) NOT NULL,
+	CONSTRAINT PK__theme PRIMARY KEY (id)
+);
+
+
+
+
+
+-- theme definition
+
+-- Drop table
+
+-- DROP TABLE followed_counterpart_theme;
+
+CREATE TABLE followed_counterpart_theme (
+	followed_counterpart_id int NOT NULL,
+	theme_id int NOT NULL,
+);
+-- surveillance_risque_credit.secteur_cluster definition
+
+-- Drop table
+
+-- DROP TABLE surveillance_risque_credit.secteur_cluster;
+
+CREATE TABLE surveillance_risque_credit.secteur_cluster (
+id int NOT NULL,
+cluster_id int NOT NULL,
+CONSTRAINT PK__secteur_cluster PRIMARY KEY (id,cluster_id),
+CONSTRAINT fk_secteur_cluster_cluster FOREIGN KEY (cluster_id) REFERENCES surveillance_risque_credit.CLUSTER(cluster_id) ON DELETE CASCADE,
+CONSTRAINT fk_secteur_cluster_secteurs FOREIGN KEY (id) REFERENCES surveillance_risque_credit.secteurs(id)
+);
+ CREATE INDEX idx_secteur_cluster_cluster_id ON secteur_cluster (  cluster_id ASC  )  
+ WITH (  PAD_INDEX = OFF ,FILLFACTOR = 100  ,SORT_IN_TEMPDB = OFF , IGNORE_DUP_KEY = OFF , STATISTICS_NORECOMPUTE = OFF , ONLINE = OFF , ALLOW_ROW_LOCKS = ON , ALLOW_PAGE_LOCKS = ON  )
+ ON [PRIMARY ] ;
+ CREATE INDEX idx_secteur_cluster_id ON secteur_cluster (  id ASC  )  
+	 WITH (  PAD_INDEX = OFF ,FILLFACTOR = 100  ,SORT_IN_TEMPDB = OFF , IGNORE_DUP_KEY = OFF , STATISTICS_NORECOMPUTE = OFF , ONLINE = OFF , ALLOW_ROW_LOCKS = ON , ALLOW_PAGE_LOCKS = ON  )
+		 ON [PRIMARY ] ;
+
+        
+CREATE TABLE scr_dev.user_adm (
+user_id int NOT NULL,
+role_id int NOT NULL,
+CONSTRAINT PK__user_adm_user_id PRIMARY KEY (user_id),
+CONSTRAINT fk_user_adm_id FOREIGN KEY (user_id) REFERENCES scr_dev.Users(userId) ON DELETE CASCADE ON UPDATE CASCADE);
