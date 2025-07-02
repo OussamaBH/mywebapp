@@ -1,1 +1,36 @@
-recup
+class Cluster(Base):
+    __tablename__ = 'cluster'
+    cluster_id = Column(Integer, primary_key=True)
+    summary = Column(String)
+    start_date = Column(DateTime)
+    end_date = Column(DateTime)
+    subsector = relationship(
+        'Subsector',
+        uselist=False,
+        secondary=subsectors_clusters,
+        back_populates='clusters'
+    )
+    sector = relationship(
+        'Sector',
+        uselist=False,
+        secondary=secteurs_clusters,
+        back_populates='clusters'
+    )
+
+    principal_article = relationship(
+        'Article',
+        uselist=False,
+        secondary=ArticleCluster.__table__,
+        primaryjoin="and_(Cluster.cluster_id==ArticleCluster.cluster_id, "
+                    "ArticleCluster.is_principal==1)",
+        secondaryjoin="ArticleCluster.an==Article.an",
+        backref=backref('clusters2', lazy=True))
+
+    associated_articles = relationship(
+        'Article',
+        uselist=True,
+        secondary=ArticleCluster.__table__,
+        primaryjoin="and_(Cluster.cluster_id==ArticleCluster.cluster_id, "
+                    "ArticleCluster.is_principal==0)",
+        secondaryjoin="ArticleCluster.an==Article.an",
+        backref=backref('clusters', lazy=True))
